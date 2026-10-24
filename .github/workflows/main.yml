@@ -1,178 +1,26 @@
-import 'package:flutter/material.dart';
+name: Build Android APK
 
-void main() {
-  runApp(const KamuIlanApp());
-}
+on:
+  push:
+    branches: [ "main" ]
 
-class KamuIlanApp extends StatelessWidget {
-  const KamuIlanApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Kamu İlan & GUY Kıyaslama',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: const IlanListScreen(),
-    );
-  }
-}
-
-class Ilan {
-  final String baslik;
-  final String kpssPuan;
-  final String kontenjan;
-  final String dilSarti;
-  final String calismaYeri;
-  final String avantaj;
-  final String dezavantaj;
-  final String ozluk;
-
-  Ilan({
-    required this.baslik,
-    required this.kpssPuan,
-    required this.kontenjan,
-    required this.dilSarti,
-    required this.calismaYeri,
-    required this.avantaj,
-    required this.dezavantaj,
-    required this.ozluk,
-  });
-}
-
-class IlanListScreen extends StatelessWidget {
-  const IlanListScreen({super.key});
-
-  List<Ilan> get _ilanlar => [
-        Ilan(
-          baslik: 'Özelleştirme İdaresi Başkanlığı Uzman Yardımcılığı',
-          kpssPuan: 'KPSSP48 (Min 75)',
-          kontenjan: '15 Kişi | Sınava Çağrı: 60 Kişi (4 Katı)',
-          dilSarti: 'VAR (YDS C Seviyesi)',
-          calismaYeri: 'Ankara (Merkez)',
-          avantaj: 'Merkez Teşkilatı kadrosu (GUY\'a göre maaş ve ek gösterge daha yüksek).',
-          dezavantaj: 'YDS / İngilizce şartı var (GUY\'da dil aranmaz).',
-          ozluk: 'Kariyer uzman yardımcılığı özlük hakları standart taşradan üstündür.',
-        ),
-        Ilan(
-          baslik: 'Sayıştay Denetçi Yardımcılığı',
-          kpssPuan: 'KPSSP48 / Klasik Sınav',
-          kontenjan: '45 Kişi | Sınava Çağrı: Eleme Sınavı',
-          dilSarti: 'YOK',
-          calismaYeri: 'Ankara (Merkez & Saha)',
-          avantaj: 'Anayasal organ, yüksek mali ve sosyal haklar, yüksek prestij.',
-          dezavantaj: 'Sınav süreci ve mülakat aşamaları oldukça zorludur.',
-          ozluk: 'Yargı organı statüsünde en yüksek özlük haklarına sahiptir.',
-        ),
-        Ilan(
-          baslik: 'Ticaret Bakanlığı Ticaret Uzman Yardımcılığı',
-          kpssPuan: 'KPSSP18, KPSSP28, KPSSP48',
-          kontenjan: '60 Kişi',
-          dilSarti: 'VAR (YDS C Seviyesi)',
-          calismaYeri: 'Ankara (Merkez)',
-          avantaj: 'Yurtdışı teşkilatı imkânı, uzmanlık sonrası temsil yetkisi.',
-          dezavantaj: 'Dil puanı gereksinimi yüksek rekabet oluşturur.',
-          ozluk: 'A Grubu merkez uzmanlık özlük hakları geçerlidir.',
-        ),
-        Ilan(
-          baslik: 'Mali Hizmetler Uzman Yardımcılığı (MHUY)',
-          kpssPuan: 'KPSSP48 (Min 75)',
-          kontenjan: '100 Kişi',
-          dilSarti: 'YOK',
-          calismaYeri: 'Tüm Türkiye (Çeşitli Kurumlar)',
-          avantaj: 'Merkez kadrodur, rotasyon yoktur, Ankara ağırlıklıdır.',
-          dezavantaj: 'Kurumlar arası özlük farkları olabilmektedir.',
-          ozluk: 'Merkez uzmanlık haklarına sahip olmakla birlikte GUY\'a göre daha rahat çalışma ortamı sunabilir.',
-        ),
-        Ilan(
-          baslik: 'Gelir Uzman Yardımcılığı (GUY)',
-          kpssPuan: 'KPSSP48 (Min 70 veya 65)',
-          kontenjan: '1000+ Kişi (İl Kontenjanlı)',
-          dilSarti: 'YOK',
-          calismaYeri: 'Tüm İller (Taşra Teşkilatı)',
-          avantaj: 'Alım sayısı çok yüksektir, il bazlı tercih imkânı sağlar.',
-          dezavantaj: 'Taşra teşkilatıdır, iş yükü yoğundur.',
-          ozluk: 'Standart GUY özlük hakları geçerlidir.',
-        ),
-      ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kamu İlan & GUY Kıyaslama'),
-        backgroundColor: Colors.blue.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(12),
-        itemCount: _ilanlar.length,
-        itemBuilder: (context, index) {
-          final ilan = _ilanlar[index];
-          return Card(
-            margin: const EdgeInsets.only(bottom: 16),
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAlignment.start,
-                children: [
-                  Text(
-                    ilan.baslik,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade900,
-                    ),
-                  ),
-                  const Divider(height: 20),
-                  Text('📋 KPSS Puanı: ${ilan.kpssPuan}'),
-                  const SizedBox(height: 4),
-                  Text('👥 Kontenjan: ${ilan.kontenjan}'),
-                  const SizedBox(height: 4),
-                  Text('🌐 Dil Şartı: ${ilan.dilSarti}'),
-                  const SizedBox(height: 4),
-                  Text('📍 Çalışma Yeri: ${ilan.calismaYeri}'),
-                  const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue.shade50,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.blue.shade200),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAlignment.start,
-                      children: [
-                        Text(
-                          '⚖️ GELİR UZMANLIĞI (GUY) KIYASLAMASI',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: Colors.blue.shade800,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text('✅ AVANTAJ: ${ilan.avantaj}'),
-                        const SizedBox(height: 4),
-                        Text('❌ DEZAVANTAJ: ${ilan.dezavantaj}'),
-                        const SizedBox(height: 4),
-                        Text('⚖️ ÖZLÜK: ${ilan.ozluk}'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          cache: true
+      - run: flutter pub get
+      - run: flutter create . --platforms=android
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kamu-ilan-app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
